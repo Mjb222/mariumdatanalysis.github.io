@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Marium Data Analysis Portfolio</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript
+      ><link rel="stylesheet" href="assets/css/noscript.css"
+    /></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">This is Massively</a></li>
+          <li class="active"><a href="generic.html">Generic Page</a></li>
+          <li><a href="elements.html">Elements Reference</a></li>
+        </ul>
+        <ul class="icons">
+          <li>
+            <a href="#" class="icon brands fa-twitter"
+              ><span class="label">Twitter</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-facebook-f"
+              ><span class="label">Facebook</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-instagram"
+              ><span class="label">Instagram</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-github"
+              ><span class="label">GitHub</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <!-- Post -->
+        <section class="post">
+          <header class="major">
+            <h3>
+           Insights into Automotive Industry
+           
+            </p>
+          </header>
+          <div class="image main"><img src="images/matlab.png" alt="" /></div>
+          <h2>Project Overview</h2>
+          <p>
+          This project aims to analyze COVID-19 data to understand the distribution and impact of the pandemic across different countries. It focuses on the total number of cases and deaths and visualizes the data for a clear understanding of which countries have been most affected.  
+          <h2>Objectives</h2>
+          <p>
+       -  To clean the COVID-19 dataset by excluding non-country data entries.<br />
+
+- To analyze the total number of cases and deaths for each country.<br />
+- To visualize the data for a clear understanding of which countries have been most affected.
+
+
+<h2>Methodology</h2>
+
+          <p>
+       1. Data Preparation: Data was loaded from a CSV file into MATLAB using the readtable function. Rows containing aggregate data labeled 'World' and 'High income' were excluded to focus on individual countries.<br />
+
+2. Data Analysis: The dataset was grouped by country, and the maximum values for total cases and deaths were calculated to avoid duplication from daily records. Data was sorted to identify the countries with the highest number of cases and deaths.<br />
+
+3. Data Visualization: Bar charts were created to represent the top 10 countries with the most cases and deaths. A pie chart was generated to illustrate the proportion of deaths among the top 5 countries.
+
+          </p>
+
+          <h2>Challenges and Solutions
+</h2>
+        
+      <h3>Data Exclusion Challenges</h3>
+
+<p>
+  - Initially, the exclusion of non-country data was not implemented, leading to a misrepresentation of the data analysis.<br />
+
+- Solution: Implemented logical indexing in MATLAB to filter out the rows corresponding to 'World' and 'High income'.</p>
+
+<h3>Visualization Challenges</h3>
+
+<p> - Difficulty in selecting appropriate visualizations that accurately represent the data distribution.<br />
+
+- Solution: Chose bar and pie charts for their ability to convey categorical data clearly and intuitively.</p>
+
+ <h3>Coding Challenges</h3>
+
+
+<p> - Errors in MATLAB code due to variable naming inconsistencies and index mismatches.<br />
+
+- Solution: Code was meticulously debugged and corrected for variable names and indexing to ensure accurate data manipulation and analysis.</p>
+<h2>Results </h2>
+            <p> 
+             - The cleaned data showed the varying impact of COVID-19 across different countries.<br />
+
+- Visualizations effectively highlighted the countries with the highest burden of cases and deaths.</p>
+<h2>Conclusion</h2>
+ 
+            <p>
+             The project successfully cleaned, analyzed, and visualized COVID-19 data to provide insights into the pandemic's impact on a country-by-country basis. The methodologies and visualizations chosen proved to be effective in communicating the severity of the situation in the most affected countries.</p>
+             <div class="image main"><img src="images/matlab2.png" alt="" /></div>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section></section>
+      </footer>
+
+    
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

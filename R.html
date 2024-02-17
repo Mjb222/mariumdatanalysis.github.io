@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<!--
+	Massively by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Marium Data Analysis Portfolio</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript
+      ><link rel="stylesheet" href="assets/css/noscript.css"
+    /></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">This is Massively</a></li>
+          <li class="active"><a href="generic.html">Generic Page</a></li>
+          <li><a href="elements.html">Elements Reference</a></li>
+        </ul>
+        <ul class="icons">
+          <li>
+            <a href="#" class="icon brands fa-twitter"
+              ><span class="label">Twitter</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-facebook-f"
+              ><span class="label">Facebook</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-instagram"
+              ><span class="label">Instagram</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-github"
+              ><span class="label">GitHub</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <!-- Post -->
+        <section class="post">
+          <header class="major">
+            <h3>
+            Psychometric Analysis Using Item Response Theory (IRT)
+           
+            </p>
+          </header>
+          <div class="image main"><img src="images/r.png" alt="" /></div>
+          <h2>Project Overview</h2>
+          <p>
+          This project involved conducting a comprehensive psychometric evaluation using the Item Response Theory (IRT) framework. The aim was to estimate and analyze the abilities of participants within a given dataset, employing the 3-parameter logistic (3PL) model. </p>
+          <h2>Objectives</h2>
+          <p>
+          - To determine the latent traits of individuals from their responses to a series of test items. <br />
+
+- To estimate item parameters that describe the difficulty, discrimination, and guessing factors of test items. <br />
+
+- To visualize the distribution of participant abilities and interpret the underlying patterns.
+
+<h2>Methodology</h2>
+
+          <p>
+          1. Data Preparation: Data was imported from a CSV file into R, ensuring correct encoding and integrity of the dataset.<br />
+
+2. Model Construction: Utilized the mirt package in R to construct a single-factor IRT model applying the 3PL specification.<br />
+
+3. Parameter Estimation: Extracted item parameters to understand item characteristics and their impact on the measurement scale.<br />
+
+4. Ability Estimation: Computed factor scores (theta values) for each participant to estimate individual abilities.<br />
+
+5. Visualization: Generated a histogram to visualize the distribution of estimated abilities, providing a clear picture of the population's traits.<br />
+
+          </p>
+
+          <h2>Challenges and Solutions
+</h2>
+          <p>
+        - Encountered and resolved a data structure issue by converting factor scores from atomic vectors to a data frame format.<br />
+
+- Debugged and corrected errors in visualization code to produce an accurate histogram of the abilities.<br />
+
+<h2>Results </h2>
+            <p> The analysis successfully rendered a histogram of estimated abilities, indicating a normal distribution of abilities across the sample. The item characteristic curves plotted for the first five items provided insights into the quality of the test items and their performance.
+<h2>Conclusion
+ </h2>
+ 
+            <p>
+             The project showcased the ability to handle complex statistical modeling in R and demonstrated the application of IRT in measuring latent psychological constructs. The results provided valuable insights into the assessment's quality and the distribution of abilities among the test-takers. </p>
+
+ 
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section></section>
+      </footer>
+
+    
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
