@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<!--
+  Massively by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Marium Data Analysis Portfolio – Advanced SQL Analytics on Sales Data</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <meta
+      name="description"
+      content="Advanced SQL analytics on sales data: time-series trends, product performance, category contribution, and customer segmentation on top of a star-schema data warehouse."
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript
+      ><link rel="stylesheet" href="assets/css/noscript.css"
+    /></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header">
+        <a href="index.html" class="logo">Marium · Data Analytics</a>
+      </header>
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">This is Massively</a></li>
+          <li class="active">
+            <a href="advanced-sql-sales.html"
+              >Advanced SQL Analytics on Sales Data</a
+            >
+          </li>
+          <li><a href="elements.html">Elements Reference</a></li>
+        </ul>
+        <ul class="icons">
+          <li>
+            <a
+              href="https://github.com/your-github-username"
+              class="icon brands fa-github"
+              ><span class="label">GitHub</span></a
+            >
+          </li>
+          <li>
+            <a
+              href="https://www.linkedin.com/in/your-linkedin-handle"
+              class="icon brands fa-linkedin"
+              ><span class="label">LinkedIn</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <!-- Post -->
+        <section class="post">
+          <header class="major">
+            <h3>Advanced SQL Analytics on Sales Data</h3>
+            <p>
+              End‑to‑end sales analytics directly in SQL on top of a
+              star‑schema data warehouse, using window functions, CTEs, and
+              segmentation logic to answer real stakeholder questions.
+            </p>
+          </header>
+
+          <!-- Hero image -->
+          <div class="image main">
+            <!-- Replace with your overall dashboard / ERD screenshot -->
+            <img
+              src="images/A-1.png"
+              alt="Overview of SQL-based sales analytics dashboards"
+            />
+          </div>
+
+          <!-- 1. Project Context and Goals -->
+          <h2>1. Project Context and Goals</h2>
+          <p>
+            This project extends a previously built SQL data warehouse by
+            focusing on advanced analytics directly in the database layer. The
+            core model is a star schema with a central
+            <code>fact_sales</code> table and supporting dimensions such as
+            <code>dim_customers</code> and <code>dim_products</code>, all
+            exposed through a curated Gold schema. On top of this, I designed a
+            series of analytical queries that evaluate business performance
+            across time, products, categories, and customer segments, without
+            relying on external BI tools.
+          </p>
+          <p>
+            Each analysis block is tied to real stakeholder questions like “How
+            is revenue trending?”, “Which products are over‑ or
+            under‑performing?”, and “Who are our VIP customers?”. The emphasis
+            is on SQL that is both interpretable for non‑technical audiences and
+            flexible enough to power dashboards and data products.
+          </p>
+
+          <!-- 2. Data and Methodological Approach -->
+          <h2>2. Data and Methodological Approach</h2>
+          <p>
+            All analyses run in the <code>datawarehouse</code> database using
+            only Gold‑layer tables, ensuring consistent business logic and
+            standardized measures. Working at this level means that upstream
+            cleaning and modeling have already been applied, so the SQL focuses
+            on analytics rather than data wrangling.
+          </p>
+          <p>
+            Methodologically, the project relies on aggregations and
+            <code>GROUP BY</code> for summarizing sales by time, category, and
+            segment; window functions for cumulative metrics, moving averages,
+            and year‑over‑year comparisons; CTEs to keep multi‑step logic
+            readable; and <code>CASE</code> expressions to define price bands
+            and customer segments that can directly drive business decisions.
+          </p>
+
+          <!-- 3. Time-Series and Trend Analysis -->
+          <h2>3. Time‑Series and Trend Analysis</h2>
+
+          <h3>3.1 Monthly Sales Dynamics</h3>
+          <p>
+            The first analysis explores monthly sales dynamics at a year‑month
+            level. By aggregating revenue, quantity, and distinct active
+            customers, I create a time series that reveals seasonality, peak
+            periods, and shifts in the underlying growth drivers (more
+            customers, larger baskets, or both).
+          </p>
+
+          <!-- Screenshot: monthly trends -->
+          <div class="image main">
+            <img
+              src="images/A-2.png"
+              alt="Line charts of monthly revenue, volume, and active customers"
+            />
+          </div>
+
+          <p>
+            Visualizing this output highlights seasonal peaks and also acts as a
+            data‑quality check: any gaps or anomalies in the time axis become
+            immediately visible when plotted, making it easier to catch missing
+            data or integration issues early.
+          </p>
+
+          <h3>3.2 Cumulative Revenue and Moving Averages</h3>
+          <p>
+            To obtain a more strategic view, I roll sales up to the yearly level
+            and compute a running cumulative total and a moving average using
+            window functions. The cumulative measure shows how much revenue has
+            been generated over the entire observed period, while the moving
+            average smooths year‑to‑year volatility.
+          </p>
+
+          <!-- Screenshot: yearly + cumulative / moving average -->
+          <div class="image main">
+            <img
+              src="images/A-2.png"
+              alt="Bar and line charts for yearly totals, cumulative revenue, and moving averages"
+            />
+          </div>
+
+          <p>
+            Together, these metrics help answer questions like “Is our growth
+            accelerating or flattening?” and “How resilient is revenue to
+            short‑term shocks?”, and are ideal inputs for dashboards that
+            combine bars for yearly totals with lines for cumulative and
+            smoothed trends.
+          </p>
+
+          <!-- 4. Product-Level Performance Analysis -->
+          <h2>4. Product‑Level Performance Analysis</h2>
+
+          <h3>4.1 Comparing Products to Their Historical Baseline</h3>
+          <p>
+            At the product level, I compute yearly sales per product and then
+            compare each product‑year to its own historical average annual
+            sales. This classification labels each product‑year as “Above Avg”,
+            “Below Avg”, or “Avg”, which makes it easy to identify consistently
+            strong performers and items that are drifting downward relative to
+            their past.
+          </p>
+
+          <!-- Screenshot: product vs baseline -->
+          <div class="image main">
+            <img
+              src="images/A-3.png"
+              alt="Table or chart showing product performance vs. historical baseline"
+            />
+          </div>
+
+          <p>
+            For portfolio managers, this view is more meaningful than a single
+            global benchmark because it respects each product’s own history and
+            context, highlighting where intervention or further investigation is
+            needed.
+          </p>
+
+          <h3>4.2 Year‑over‑Year Growth and Decline</h3>
+          <p>
+            In addition to the historical baseline, I compute year‑over‑year
+            changes using window functions that bring in the previous year’s
+            sales per product. This produces both absolute and percentage
+            change, along with labels such as “Increase”, “Decrease”, and “No
+            change”.
+          </p>
+
+          <!-- Screenshot: YoY product changes -->
+          <div class="image main">
+            <img
+              src="images/A-4.png"
+              alt="Heatmap or table showing product year-over-year changes"
+            />
+          </div>
+
+          <p>
+            This perspective highlights turning points in product performance:
+            historically strong products that show a recent “Decrease” warrant
+            attention, while sudden “Increase” cases can be analyzed for
+            positive levers such as successful campaigns or packaging changes.
+          </p>
+
+          <!-- 5. Category Contribution -->
+          <h2>5. Category Contribution and Part‑to‑Whole Analysis</h2>
+          <p>
+            To understand which product lines drive overall revenue, I aggregate
+            sales by category and compute both absolute revenue and the
+            percentage of total sales. This part‑to‑whole analysis answers
+            classic questions like “Which categories are our revenue anchors?”
+            and “Do we rely too heavily on a small number of categories?”.
+          </p>
+
+          <!-- Screenshot: category contribution / Pareto -->
+          <div class="image main">
+            <img
+              src="images/A-4.png"
+              alt="Pareto-style chart showing category revenue contributions"
+            />
+          </div>
+
+          <p>
+            These insights support strategic decisions around assortment,
+            marketing budget allocation, and opportunities for diversification or
+            rationalization of the catalog.
+          </p>
+
+          <!-- 6. Product Segmentation by Price Band -->
+          <h2>6. Product Segmentation by Price Band</h2>
+          <p>
+            Recognizing that price positioning is central to merchandising, I
+            segment products into cost bands such as “Below 100”, “100–500”,
+            “500–1000”, and “Above 1000”. Counting how many products fall into
+            each band reveals whether the catalog is skewed toward low‑priced,
+            mid‑range, or premium items.
+          </p>
+
+          <!-- Screenshot: price band segmentation -->
+          <div class="image main">
+            <img
+              src="images/A-5.png"
+              alt="Bar chart showing product counts by price band"
+            />
+          </div>
+
+          <p>
+            When these bands are combined with sales and margin data, they can
+            show whether revenue is dominated by premium or budget items and
+            whether the current price mix is aligned with the brand’s
+            positioning and target customers.
+          </p>
+
+          <!-- 7. Customer Segmentation -->
+          <h2>7. Customer Segmentation and Behavioral Insights</h2>
+
+          <h3>7.1 Building Behavioral Features</h3>
+          <p>
+            For customers, I construct behavioral features by summarizing
+            transaction history: total lifetime sales, first and last order
+            dates, and a computed lifespan in months. These features capture
+            value, tenure, and (with a simple extension) recency, forming the
+            basis for richer segmentation and lifetime value analysis.
+          </p>
+
+          <!-- Screenshot: customer feature table -->
+          <div class="image main">
+            <img
+              src="images/A-5.png"
+              alt="Table showing customer lifetime value, tenure, and lifespan"
+            />
+          </div>
+
+          <p>
+            Because these features are computed directly in SQL on the Gold
+            layer, they can be reused across multiple analyses and exported into
+            modeling pipelines without changing the underlying schema.
+          </p>
+
+          <h3>7.2 Segmenting into VIP, Regular, and New</h3>
+          <p>
+            Using lifetime spending and lifespan, I segment customers into VIP,
+            Regular, and New groups. VIPs have at least 12 months of observed
+            history and high total spending, Regular customers have similar
+            tenure but moderate spending, and New customers have less than 12
+            months of activity regardless of spend.
+          </p>
+
+          <!-- Screenshot: VIP / Regular / New segmentation -->
+          <div class="image main">
+            <img
+              src="images/A-6.png"
+              alt="Segment-level chart showing VIP, Regular, and New customers and their revenue"
+            />
+          </div>
+
+          <p>
+            Aggregating counts and revenue per segment transforms raw
+            transaction data into directly actionable groups for marketing and
+            retention, and provides inputs for churn and upsell propensity
+            models.
+          </p>
+
+          <!-- 8. Insights and Impact -->
+          <h2>8. Insights and Business Impact</h2>
+          <p>
+            Across these analyses, the SQL patterns provide a clear picture of
+            growth and stability over time, portfolio strengths and weaknesses
+            at product and category levels, and how concentrated revenue is in
+            high‑value customers. Because everything is computed in the
+            warehouse, the same logic can power dashboards, ad‑hoc reports, and
+            predictive models.
+          </p>
+          <p>
+            For stakeholders and hiring managers, this project demonstrates
+            advanced SQL proficiency and, more importantly, the ability to think
+            in terms of business questions, design appropriate metrics, and use
+            window functions and aggregations to answer those questions cleanly
+            and reproducibly.
+          </p>
+
+          <!-- 9. Next Steps -->
+          <h2>9. Next Steps and Extensions</h2>
+          <p>
+            Natural extensions include adding recency metrics for full RFM
+            scoring, building cohort and retention tables in SQL, combining
+            price bands with margin to explore price elasticity, and exporting
+            customer and product features for predictive models such as churn or
+            upsell propensity. These build directly on the patterns established
+            here and further strengthen the data warehouse as a foundation for
+            both descriptive and predictive analytics.
+          </p>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section></section>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
