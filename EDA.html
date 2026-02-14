@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exploratory Data Analysis – SQL Data Warehouse</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+      <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+  </head>
+  <body class="is-preload">
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header">
+        <a href="index.html" class="logo">Exploratory Data Analysis</a>
+      </header>
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+          <li class="active"><a href="eda_dw.html">SQL EDA – Sales Data</a></li>
+        </ul>
+        <ul class="icons">
+          <li>
+            <a href="https://github.com/Mjb222/YOUR_REPO_NAME"
+               class="icon brands fa-github" target="_blank">
+              <span class="label">GitHub</span></a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <section class="post">
+          <header class="major">
+            <h2>Exploratory Data Analysis of Sales Data in SQL</h2>
+            <p>
+              This project showcases how I use SQL as an exploratory data
+              analysis tool on a star-schema sales data mart built from CRM and
+              ERP sources. Before building dashboards or advanced models, I
+              wanted to understand the structure of the data, its coverage over
+              time, and the basic behavior of customers and products. The
+              analysis focuses on answering practical questions such as “How big
+              is the business?”, “Who are the most valuable customers?”, and
+              “Over what time horizon do we actually have trustworthy data?”.
+            </p>
+          </header>
+
+          <!-- 1. Data & Schema Exploration -->
+          <h2>1. Understanding the Data Structure</h2>
+          <p>
+            I started with a structural exploration of the warehouse using the
+            <code>INFORMATION_SCHEMA</code> views. Listing all tables across the
+            Bronze, Silver, and Gold schemas gave me a quick inventory of what
+            is available and how the pipeline is organized. This step is useful
+            not only for orientation, but also for validating that all expected
+            objects were created correctly after the ETL processes.
+          </p>
+          <p>
+            After confirming the list of tables, I drilled into
+            <code>dim_customers</code> to inspect its columns and data types.
+            Understanding fields such as <code>customer_key</code>,
+            <code>birthdate</code>, <code>country</code>, and
+            <code>gender</code> helped me plan later analysis around customer
+            demographics and segmentation. At this stage I am not doing any
+            statistics yet, just making sure I fully understand how the data is
+            modeled and where each business concept lives.
+          </p>
+
+          <pre><code>-- List all tables
+SELECT * 
+FROM INFORMATION_SCHEMA.TABLES;
+
+-- Inspect columns of the main customer dimension
+SELECT * 
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_NAME = 'dim_customers';</code></pre>
+
+          <div class="image main">
+            <!-- screenshot: INFORMATION_SCHEMA.TABLES result -->
+            <img src="images/EDA-1.png"
+                 alt="Listing all tables in the warehouse" />
+          </div>
+
+          <div class="image main">
+            <!-- screenshot: INFORMATION_SCHEMA.COLUMNS for dim_customers -->
+            <img src="images/EDA-2.png"
+                 alt="Exploring columns in dim_customers" />
+          </div>
+
+          <!-- 2. Date Coverage & Demographics -->
+          <h2>2. Date Coverage and Customer Demographics</h2>
+          <p>
+            Once the structure was clear, I focused on time coverage, because
+            every downstream analysis depends on knowing “from when to when” the
+            data is reliable. By finding the first and last order dates in
+            <code>fact_sales</code> and computing the range in months, I could
+            see exactly how many years of sales history were available. This
+            helps prevent mistakes like drawing conclusions about seasonality
+            when only a short window of data actually exists.
+          </p>
+          <p>
+            In parallel, I examined basic customer demographics by calculating
+            the youngest and oldest customers in <code>dim_customers</code>.
+            The age span tells me whether the dataset is focused on a specific
+            life stage, such as young adults, or whether it covers a broader
+            population. That context matters when interpreting future insights
+            about purchasing patterns, average order value, or responsiveness to
+            campaigns across age groups.
+          </p>
+
+
+
+          <div class="image main">
+            <!-- screenshot: date exploration + age range -->
+            <img src="images/EDA-4.png"
+                 alt="First/last order dates and age range of customers" />
+          </div>
+
+          <!-- 3. High-Level Business Metrics -->
+          <h2>3. High‑Level Business Metrics</h2>
+          <p>
+            After understanding the temporal and demographic context, I wanted a
+            concise view of the overall business scale. Instead of running
+            separate queries for every metric, I combined several aggregations
+            into one compact “KPI table” using <code>UNION ALL</code>. This
+            report summarizes total sales, total quantity sold, number of
+            distinct orders, number of active products, and total number of
+            customers present in the warehouse.
+          </p>
+          <p>
+            Having these metrics in a single result set is very convenient when
+            sharing early findings with non‑technical stakeholders. It reads
+            almost like the top row of a dashboard, but is generated directly in
+            SQL. It also serves as a quick sanity check for the data engineering
+            pipeline: if the numbers are unexpectedly low or high, that may
+            indicate issues in the ETL or filters applied upstream.
+          </p>
+
+     
+
+          <div class="image main">
+            <!-- screenshot: measures exploration -->
+            <img src="images/EDA-5.png"
+                 alt="Summary table of key business measures" />
+          </div>
+
+          <!-- 4. Customer Revenue Distribution -->
+          <h2>4. Customer Revenue Distribution</h2>
+          <p>
+            A core EDA question for any commerce dataset is how revenue is
+            distributed across customers. To answer this, I joined
+            <code>fact_sales</code> with <code>dim_customers</code> and summed
+            <code>sales_amount</code> per customer, then ordered the results by
+            total revenue. This query immediately reveals whether the business
+            depends on a small group of high‑value customers or whether revenue
+            is evenly spread across the customer base.
+          </p>
+          <p>
+            The output can be exported to a spreadsheet or visualization tool to
+            build Pareto charts or cumulative distribution plots, but even in
+            raw table form it already provides powerful insights. Seeing actual
+            names and keys attached to the highest‑revenue rows makes it easier
+            to think about next steps, such as creating VIP segments, designing
+            tailored campaigns, or examining churn risk among the most valuable
+            customers.
+          </p>
+
+        
+
+          <div class="image main">
+            <!-- screenshot: top customers by revenue -->
+            <img src="images/EDA-7.png"
+                 alt="Top customers ranked by total revenue" />
+          </div>
+
+          <!-- 5. Summary of Insights -->
+          <h2>5. Key Insights from the SQL EDA</h2>
+          <p>
+            Overall, the SQL‑based exploratory analysis confirmed that the data
+            warehouse is structurally sound and analytically rich. I verified
+            that the star schema is complete, that sales data spans a meaningful
+            time window, and that the customer base is large enough to support
+            segmentation and behavioral analysis. The quick KPI table provides a
+            baseline understanding of business scale before any dashboards are
+            even opened.
+          </p>
+          <p>
+            The customer revenue exploration showed that a relatively small set
+            of customers contributes a substantial portion of total sales,
+            suggesting clear opportunities for VIP programs and retention
+            strategies. These EDA findings directly influenced how I designed
+            the Gold‑layer customer report and Tableau dashboards in the
+            broader data warehouse project, ensuring that visualizations and
+            metrics focus on what is actually most important in the underlying
+            data.
+          </p>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section></section>
+      </footer>
+
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollex.min.js"></script>
+      <script src="assets/js/jquery.scrolly.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+    </div>
+  </body>
+</html>
