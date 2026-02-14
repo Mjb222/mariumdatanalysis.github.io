@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<!--
+  Massively by HTML5 UP
+  html5up.net | @ajlkn
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Marium Data Analysis Portfolio – SQL Data Warehouse Project</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript>
+      <link rel="stylesheet" href="assets/css/noscript.css" />
+    </noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+          <li class="active">
+            <a href="generic.html">SQL Data Warehouse Project</a>
+          </li>
+          <li><a href="elements.html">Other Projects</a></li>
+        </ul>
+        <ul class="icons">
+          <li>
+            <a href="#" class="icon brands fa-linkedin"
+              ><span class="label">LinkedIn</span></a
+            >
+          </li>
+          <li>
+            <a href="#" class="icon brands fa-github"
+              ><span class="label">GitHub</span></a
+            >
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <!-- Post -->
+        <section class="post">
+          <header class="major">
+            <h3>
+              Building a Modern SQL Data Warehouse with Medallion Architecture
+            </h3>
+          </header>
+
+          <!-- HERO IMAGE (Tableau / overall view) -->
+          <div class="image main">
+            <!-- TODO: replace with your Tableau or overview screenshot -->
+            <img
+              src="images/dw_overview.png"
+              alt="SQL data warehouse project overview"
+            />
+          </div>
+
+          <!-- ===== PROJECT OVERVIEW ===== -->
+          <h2>Project Overview</h2>
+          <p>
+            This project implements a SQL-based data warehouse using a Medallion
+            architecture (Bronze → Silver → Gold) to integrate CRM and ERP CSV
+            files into a single analytics-ready environment. The warehouse
+            supports customer and sales analysis, from raw data ingestion all
+            the way to Tableau dashboards built on top of a star-schema sales
+            data mart.
+          </p>
+
+          <h2>Objectives</h2>
+          <p>
+            - Integrate CRM and ERP data into a centralized warehouse.<br />
+            - Apply Medallion design with clearly separated Bronze, Silver, and
+            Gold layers.<br />
+            - Design a star-schema sales data mart for self-service analytics.<br />
+            - Build a customer-focused analytics view with value and recency
+            metrics.<br />
+            - Deliver dashboards that surface sales trends and customer
+            segments.
+          </p>
+
+          <!-- ===== PROJECT PLANNING (NOTION) ===== -->
+          <h2>Project Planning in Notion</h2>
+          <p>
+            I used Notion to break the project into tasks such as requirement
+            gathering, data exploration, data modeling, SQL development, quality
+            checks, and dashboard design. Kanban-style boards and checklists
+            helped me track each layer (Bronze, Silver, Gold) and the
+            dependencies between them.
+          </p>
+          <div class="image main">
+            <!-- TODO: replace with your Notion planning screenshot -->
+            <img
+              src="images/dw_notion_planning.png"
+              alt="Notion project planning for SQL data warehouse"
+            />
+          </div>
+
+          <!-- ===== ARCHITECTURE & FLOWS ===== -->
+          <h2>Data Architecture and Flow</h2>
+          <p>
+            The warehouse ingests CSV files from CRM and ERP systems into a
+            Bronze layer, standardizes and enriches them in the Silver layer,
+            and exposes business-ready data in the Gold layer. The following
+            diagrams show the high-level flow, the layer responsibilities, and
+            the final star-schema design of the sales data mart.
+          </p>
+
+          <!-- FLOW DIAGRAM 1: TABLE-LEVEL DATA FLOW -->
+          <h3>Data Flow Diagram</h3>
+          <p>
+            This diagram illustrates how each source table from CRM and ERP
+            flows into Bronze, is copied into Silver, and then contributes to
+            Gold-layer objects such as <code>fact_sales</code>,
+            <code>dim_customers</code>, and <code>dim_products</code>.
+          </p>
+          <div class="image main">
+            <!-- TODO: use Screenshot-2026-02-14-at-14.10.02.jpg -->
+            <img
+              src="images/data_flow_diagram.png"
+              alt="End-to-end data flow from sources to Bronze, Silver, and Gold layers"
+            />
+          </div>
+
+          <!-- FLOW DIAGRAM 2: LAYER RESPONSIBILITIES -->
+          <h3>Warehouse Layers and Responsibilities</h3>
+          <p>
+            The second diagram summarizes how each layer is used: Bronze stores
+            raw tables, Silver stores cleaned and standardized tables, and Gold
+            exposes business-ready views built with star-schema and aggregated
+            tables. It also highlights load strategies such as batch processing
+            and full reloads.
+          </p>
+          <div class="image main">
+            <!-- TODO: use Screenshot-2026-02-14-at-14.33.15.jpg -->
+            <img
+              src="images/dw_layers_responsibilities.png"
+              alt="Bronze, Silver, and Gold layer responsibilities"
+            />
+          </div>
+
+          <!-- FLOW DIAGRAM 3: STAR SCHEMA -->
+          <h3>Sales Data Mart (Star Schema)</h3>
+          <p>
+            The sales data mart follows a classic star schema with one fact
+            table and two core dimensions. <code>gold.fact_sales</code>
+            contains one row per order line, linked to
+            <code>gold.dim_customers</code> and
+            <code>gold.dim_products</code> via surrogate keys. This structure
+            makes it easy to slice metrics such as revenue and quantity by
+            customer attributes (country, age, gender) and product attributes
+            (category, subcategory, product line).
+          </p>
+          <div class="image main">
+            <!-- TODO: use Screenshot-2026-02-14-at-14.43.39.jpg -->
+            <img
+              src="images/sales_data_mart_star_schema.png"
+              alt="Star schema of sales data mart"
+            />
+          </div>
+
+          <!-- ===== DATA LAYERS DETAIL ===== -->
+          <h2>Bronze Layer – Raw Ingestion</h2>
+          <p>
+            The Bronze layer stores raw copies of CRM and ERP CSV files. Tables
+            mirror the structure of the source systems: CRM sales details,
+            customer information, product details, and ERP customers, locations,
+            and pricing categories. Only light technical cleaning is applied
+            (type casting and obvious null handling), preserving full lineage
+            for auditability.
+          </p>
+
+          <h2>Silver Layer – Cleaned &amp; Conformed Data</h2>
+          <p>
+            In the Silver layer, I standardized customer identifiers, cleaned
+            text fields, validated dates and numeric values, and ensured that
+            all sales records link consistently to customer and product
+            entities. This layer contains conformed tables such as unified
+            customers, enriched products, and validated sales.
+          </p>
+
+          <h2>Gold Layer – Business-Ready Marts</h2>
+          <p>
+            The Gold layer contains the star-schema sales data mart and
+            business-friendly views. Key objects include
+            <code>dim_customers</code>, <code>dim_products</code>,
+            <code>dim_date</code>, and <code>fact_sales</code>, as well as a
+            customer analytics view that aggregates customer-level metrics used
+            in dashboards.
+          </p>
+
+          <!-- ===== CUSTOMER ANALYTICS VIEW ===== -->
+          <h2>Customer Analytics View</h2>
+          <p>
+            I created a dedicated view that aggregates customer performance and
+            behavior using the Gold layer. For each customer, the view reports
+            total orders, total sales, quantity purchased, number of distinct
+            products, recency (days since last order), lifespan (days between
+            first and last order), average order value, and average monthly
+            spend. Customers are then grouped into segments such as VIP,
+            Regular, or Occasional based on revenue thresholds, and can also be
+            analyzed by age_group and geographic attributes.
+          </p>
+
+          <!-- OPTIONAL: screenshot of SQL client or table -->
+          <div class="image main">
+            <!-- TODO: replace with screenshot of the SQL view -->
+            <img
+              src="images/dw_sql_view_report_customers.png"
+              alt="SQL view for customer analytics"
+            />
+          </div>
+
+          <!-- ===== SALES TRENDS & CUMULATIVE ANALYSIS ===== -->
+          <h2>Sales Trends and Cumulative Analysis</h2>
+          <p>
+            To understand long-term performance, I aggregated sales by year and
+            computed cumulative running totals and a moving average over time.
+            This provides a smooth view of revenue growth and helps separate
+            structural trends from short-term fluctuations.
+          </p>
+
+          <!-- OPTIONAL: screenshot of exported CSV or SQL query -->
+          <div class="image main">
+            <!-- TODO: replace with screenshot of yearly sales query or CSV -->
+            <img
+              src="images/dw_sales_yearly_sql.png"
+              alt="Yearly and cumulative sales analysis in SQL"
+            />
+          </div>
+
+          <!-- ===== DASHBOARDS ===== -->
+          <h2>Dashboards and Visualizations</h2>
+          <p>
+            I connected Tableau directly to the Gold schema to build interactive
+            dashboards. The customer overview dashboard includes KPIs, segment
+            distributions, age-group breakdowns, and a recency vs. revenue
+            scatter plot. A separate view visualizes yearly sales with bars for
+            annual totals and lines for cumulative revenue and moving-average
+            trends.
+          </p>
+
+          <div class="image main">
+            <!-- TODO: customer dashboard screenshot -->
+            <img
+              src="images/dw_tableau_customers.png"
+              alt="Customer analytics Tableau dashboard"
+            />
+          </div>
+
+          <div class="image main">
+            <!-- TODO: cumulative sales dashboard screenshot -->
+            <img
+              src="images/dw_tableau_cumulative.png"
+              alt="Cumulative sales Tableau dashboard"
+            />
+          </div>
+
+          <!-- ===== GOVERNANCE & IMPACT ===== -->
+          <h2>Data Quality and Governance</h2>
+          <p>
+            Throughout the pipeline, I implemented checks for missing or invalid
+            dates, negative quantities or prices, and duplicate customer
+            records. All Silver and Gold tables include load timestamps so data
+            freshness can be monitored. Business rules for segmentation and
+            filtering are documented alongside the SQL scripts, supporting
+            transparency and reproducibility.
+          </p>
+
+          <h2>Project Impact and Applications</h2>
+          <p>
+            This project demonstrates an end-to-end data warehousing workflow:
+            from planning in Notion and modeling with draw.io to implementing
+            SQL transformations and building dashboards. It shows how structured
+            layers and a star schema make it easier for business users to
+            explore customer value, product performance, and sales trends
+            without needing to understand the complexity of the raw source
+            systems.
+          </p>
+
+          <h2>Deliverables</h2>
+          <p>
+            - GitHub repository with SQL scripts for Bronze, Silver, and Gold
+            layers.<br />
+            - Draw.io diagrams of the data flow, warehouse layers, and star
+            schema exported as images and embedded on this page.<br />
+            - Tableau dashboards for customer analytics and sales trends.<br />
+            - This written report summarizing design choices, methodology, and
+            key insights.
+          </p>
+        </section>
+      </div>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <section></section>
+      </footer>
+
+      <!-- Scripts -->
+      <script src="assets/js/jquery.min.js"></script>
+      <script src="assets/js/jquery.scrollex.min.js"></script>
+      <script src="assets/js/jquery.scrolly.min.js"></script>
+      <script src="assets/js/browser.min.js"></script>
+      <script src="assets/js/breakpoints.min.js"></script>
+      <script src="assets/js/util.js"></script>
+      <script src="assets/js/main.js"></script>
+    </div>
+  </body>
+</html>
